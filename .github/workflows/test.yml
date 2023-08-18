@@ -1,21 +1,23 @@
 name: "Dummy"
+
 on:
   workflow_dispatch:
     inputs:
       sleep_time:
         description: "sleep for"
-        required: true
-        default: 600
-
-
-permissions:
-  packages: write
-
+        default: 60
+      runner_label:
+        description: "runner label"
+        default: ubuntu
 
 jobs:
-  packages:
+  dummy:
     name: "Do nothing, really"
-    runs-on: self-hosted
+
+    runs-on:
+      - self-hosted
+      - "${{ github.event.inputs.runner_label }}"
+
     steps:
       - name: "Just print some info"
         shell: bash
